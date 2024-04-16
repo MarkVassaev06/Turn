@@ -16,9 +16,9 @@ public class Main extends JFrame {
         add(button);
         //спутники?
         CircleComponent satellite1 = new CircleComponent("planet1", Color.YELLOW,
-                10, 490, 300, 0.1, 200);
+                30, 490, 300, 0.1, 200);
         CircleComponent satellite2 = new CircleComponent("planet2", Color.BLUE,
-                5, 300, 750, 0.1, 300);
+                25, 300, 750, 0.1, 300);
         //звезда?
         CircleComponent star = new CircleComponent("sun", Color.RED,
                 50, 500, 500, 0.5, 0);
