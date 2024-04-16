@@ -1,6 +1,6 @@
 import java.awt.*;
 
-class CircleComponent {
+class CircleComponent implements Comparable<CircleComponent>{
     private Color color;
     private double diameter;
     private double x;
@@ -60,4 +60,14 @@ class CircleComponent {
         g2d.fillOval((int) x, (int) y, (int) (diameter / 2), (int) (diameter / 2));
     }
 
+    @Override
+    public int compareTo(CircleComponent o) {
+        if (this.x < o.x) {
+            return -1;
+        } else if (this.x > o.x) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

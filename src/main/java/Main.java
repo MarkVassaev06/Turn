@@ -7,6 +7,10 @@ public class Main extends JFrame {
 
     public Main(String title) {
         super(title);
+        initGui();
+    }
+
+    private void initGui() {
         JButton button = new JButton("press me");
         button.setBounds(0, 0, 120, 25);
         add(button);
@@ -20,9 +24,9 @@ public class Main extends JFrame {
                 50, 500, 500, 0.5, 0);
 
         // Мапа с обьектами и их спутниками.
-        Map<CircleComponent, java.util.List<CircleComponent>> bodyMap = new TreeMap<>();
+        Map<CircleComponent, List<CircleComponent>> bodyMap = new TreeMap<>();
         //Это объекты-спутники
-        java.util.List<CircleComponent> objects = new ArrayList<>();
+        List<CircleComponent> objects = new ArrayList<>();
         objects.add(satellite1);
         objects.add(satellite2);
         //К звезде подцепляем спутники
@@ -63,8 +67,6 @@ public class Main extends JFrame {
 
         private void movePlanets() {
             for (CircleComponent star : bodyMap.keySet()) {
-                //Стираем старую картинку
-                star.eraseComponent(graphics);
                 //Вычисляем новые координаты
                 double startX = 500 + star.getRadiusOfOrbit() * Math.cos(star.getSpeed() * dtA);
                 double startY = 500 + star.getRadiusOfOrbit() * Math.sin(star.getSpeed() * dtA);

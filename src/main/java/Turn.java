@@ -18,6 +18,7 @@ public class Turn {
             });
         } catch (Exception e) {
             System.err.println("createGUI didn't successfully complete");
+            e.printStackTrace();
         }
     }
 }
