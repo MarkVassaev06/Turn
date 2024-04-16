@@ -14,7 +14,6 @@ public class Turn {
                 main.setLayout(null);
                 main.setResizable(false);
                 main.setDefaultCloseOperation(EXIT_ON_CLOSE);
-                main.createGui();
                 main.setVisible(true);
             });
         } catch (Exception e) {

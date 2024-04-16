@@ -7,22 +7,17 @@ public class Main extends JFrame {
 
     public Main(String title) {
         super(title);
-    }
-
-    public void createGui() {
-
         JButton button = new JButton("press me");
         button.setBounds(0, 0, 120, 25);
         add(button);
-
         //спутники?
         CircleComponent satellite1 = new CircleComponent("planet1", Color.YELLOW,
-                10, 490, 300, 0.1);
+                10, 490, 300, 0.1, 200);
         CircleComponent satellite2 = new CircleComponent("planet2", Color.BLUE,
-                5, 300, 750, 0.1);
+                5, 300, 750, 0.1, 300);
         //звезда?
         CircleComponent star = new CircleComponent("sun", Color.RED,
-                50, 500, 500, 0.5);
+                50, 500, 500, 0.5, 0);
 
         // Мапа с обьектами и их спутниками.
         Map<CircleComponent, java.util.List<CircleComponent>> bodyMap = new TreeMap<>();
@@ -41,7 +36,6 @@ public class Main extends JFrame {
             java.util.Timer timer = new java.util.Timer();
             timer.schedule(new MyTimerTask(getGraphics(), bodyMap), 0);
         });
-
     }
 
     static class MyTimerTask extends TimerTask {
@@ -69,17 +63,23 @@ public class Main extends JFrame {
 
         private void movePlanets() {
             for (CircleComponent star : bodyMap.keySet()) {
-                double startX = 500 + star.getDiametr() * Math.cos(star.getSpeed() * dtA);
-                double startY = 500 + star.getDiametr() * Math.sin(star.getSpeed() * dtA);
+                //Стираем старую картинку
+                star.eraseComponent(graphics);
+                //Вычисляем новые координаты
+                double startX = 500 + star.getRadiusOfOrbit() * Math.cos(star.getSpeed() * dtA);
+                double startY = 500 + star.getRadiusOfOrbit() * Math.sin(star.getSpeed() * dtA);
                 star.setXY(startX, startY);
+                //Рисуем новое положение
                 star.paintComponent(graphics);
+                //Пробегаемся по спутникам звезды
                 for (CircleComponent satellite : bodyMap.get(star)) {
                     //Затираем предыдущее положение
                     satellite.eraseComponent(graphics);
                     //Вычисляем новые координаты
-                    double X = startX + 100 * Math.cos(satellite.getSpeed() * dtA);
-                    double Y = startY + 100 * Math.sin(satellite.getSpeed() * dtA);
+                    double X = startX + satellite.getRadiusOfOrbit() * Math.cos(satellite.getSpeed() * dtA);
+                    double Y = startY + satellite.getRadiusOfOrbit() * Math.sin(satellite.getSpeed() * dtA);
                     satellite.setXY(X, Y);
+                    //Рисуем новое положение
                     satellite.paintComponent(graphics);
                 }
             }
