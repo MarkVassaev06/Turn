@@ -19,7 +19,7 @@ class CircleComponent extends JComponent implements Comparable<CircleComponent> 
         this.radiusOfCircle = radiusOfCircle;
     }
 
-    void setXY(double x, double y) {
+    public void setXY(double x, double y) {
         this.x = x;
         this.y = y;
         System.out.println(this.x + this.y);
@@ -45,7 +45,7 @@ class CircleComponent extends JComponent implements Comparable<CircleComponent> 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        Ellipse2D ellipse = new Ellipse2D.Double(x, y, 50, 50);
+        Ellipse2D ellipse = new Ellipse2D.Double(x, y, radiusOfCircle, radiusOfCircle);
         g2d.fill(ellipse);
         g.setColor(color);
         ((Graphics2D) g).draw(ellipse);
