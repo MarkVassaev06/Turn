@@ -55,21 +55,24 @@ public class Main extends JFrame {
 
         private Graphics graphics;
         private Map<CircleComponent, List<CircleComponent>> bodyMap;
-        private static double dtA = 0.01;
+        private double t;
+
+        public static final double DT = 0.001;
 
         public MyTimerTask(Graphics graphics, Map<CircleComponent, List<CircleComponent>> bodyMap) {
             this.graphics = graphics;
             this.bodyMap = bodyMap;
+            t = 0.0;
         }
 
         @Override
         public void run() {
             while (!Thread.interrupted()) {
-                try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    return;
-                }
+//                try {
+//                    Thread.sleep(1);
+//                } catch (InterruptedException e) {
+//                    return;
+//                }
                 movePlanets();
             }
         }
@@ -78,8 +81,8 @@ public class Main extends JFrame {
             for (CircleComponent star : bodyMap.keySet()) {
                 //star.eraseComponent(graphics);
                 //Вычисляем новые координаты
-                double startX = 500 + star.getRadiusOfOrbit() * Math.cos(star.getSpeed() * dtA);
-                double startY = 500 + star.getRadiusOfOrbit() * Math.sin(star.getSpeed() * dtA);
+                double startX = 500 + star.getRadiusOfOrbit() * Math.cos(star.getSpeed() * t);
+                double startY = 500 + star.getRadiusOfOrbit() * Math.sin(star.getSpeed() * t);
                 star.setXY(startX, startY);
                 //Рисуем новое положение
                 star.paintComponent(graphics);
@@ -88,14 +91,14 @@ public class Main extends JFrame {
                     //Затираем предыдущее положение
                     //satellite.eraseComponent(graphics);
                     //Вычисляем новые координаты
-                    double X = startX + satellite.getRadiusOfOrbit() * Math.cos(satellite.getSpeed() * dtA);
-                    double Y = startY + satellite.getRadiusOfOrbit() * Math.sin(satellite.getSpeed() * dtA);
+                    double X = startX + satellite.getRadiusOfOrbit() * Math.cos(satellite.getSpeed() * t);
+                    double Y = startY + satellite.getRadiusOfOrbit() * Math.sin(satellite.getSpeed() * t);
                     satellite.setXY(X, Y);
                     //Рисуем новое положение
                     satellite.paintComponent(graphics);
                 }
             }
-            dtA += 0.01;
+            t += DT;
         }
     }
 }

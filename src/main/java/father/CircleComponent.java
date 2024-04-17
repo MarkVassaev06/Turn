@@ -28,7 +28,7 @@ class CircleComponent implements Comparable<CircleComponent> {
     public void setXY(double x, double y) {
         this.x = x;
         this.y = y;
-        System.out.println(this.x + this.y);
+//        System.out.println(this.x + this.y);
     }
 
     public double getX() {
