@@ -1,6 +1,9 @@
-import java.awt.*;
+package father;
 
-class CircleComponent implements Comparable<CircleComponent>{
+import java.awt.*;
+import java.util.Objects;
+
+class CircleComponent implements Comparable<CircleComponent> {
     private Color color;
     private double diameter;
     private double x;
@@ -60,14 +63,22 @@ class CircleComponent implements Comparable<CircleComponent>{
         g2d.fillOval((int) x, (int) y, (int) (diameter / 2), (int) (diameter / 2));
     }
 
+
     @Override
     public int compareTo(CircleComponent o) {
-        if (this.x < o.x) {
-            return -1;
-        } else if (this.x > o.x) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return o.name.compareTo(name);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CircleComponent that = (CircleComponent) o;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

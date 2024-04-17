@@ -1,3 +1,5 @@
+package father;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -15,22 +17,29 @@ public class Main extends JFrame {
         button.setBounds(0, 0, 120, 25);
         add(button);
         //спутники?
-        CircleComponent satellite1 = new CircleComponent("planet1", Color.YELLOW,
+        CircleComponent planet1 = new CircleComponent("planet1", Color.YELLOW,
                 30, 490, 300, 0.1, 200);
-        CircleComponent satellite2 = new CircleComponent("planet2", Color.BLUE,
+        CircleComponent planet2 = new CircleComponent("planet2", Color.BLUE,
                 25, 300, 750, 0.1, 300);
+        CircleComponent satellite1 = new CircleComponent("satellite1", Color.BLUE,
+                25, 300, 250, 0.1, 400);
         //звезда?
-        CircleComponent star = new CircleComponent("sun", Color.RED,
-                50, 500, 500, 0.5, 0);
+        CircleComponent star = new CircleComponent("star", Color.RED,
+                50, 500, 500, 0.5, 50);
 
         // Мапа с обьектами и их спутниками.
         Map<CircleComponent, List<CircleComponent>> bodyMap = new TreeMap<>();
         //Это объекты-спутники
         List<CircleComponent> objects = new ArrayList<>();
-        objects.add(satellite1);
-        objects.add(satellite2);
+        objects.add(planet1);
+        objects.add(planet2);
         //К звезде подцепляем спутники
         bodyMap.put(star, objects);
+
+        List<CircleComponent> objects1 = new ArrayList<>();
+        objects1.add(satellite1);
+
+        bodyMap.put(planet2, objects1);
 
         button.addActionListener(e -> {
             getRootPane().setBackground(Color.WHITE);
@@ -67,6 +76,7 @@ public class Main extends JFrame {
 
         private void movePlanets() {
             for (CircleComponent star : bodyMap.keySet()) {
+                //star.eraseComponent(graphics);
                 //Вычисляем новые координаты
                 double startX = 500 + star.getRadiusOfOrbit() * Math.cos(star.getSpeed() * dtA);
                 double startY = 500 + star.getRadiusOfOrbit() * Math.sin(star.getSpeed() * dtA);
@@ -76,7 +86,7 @@ public class Main extends JFrame {
                 //Пробегаемся по спутникам звезды
                 for (CircleComponent satellite : bodyMap.get(star)) {
                     //Затираем предыдущее положение
-                    satellite.eraseComponent(graphics);
+                    //satellite.eraseComponent(graphics);
                     //Вычисляем новые координаты
                     double X = startX + satellite.getRadiusOfOrbit() * Math.cos(satellite.getSpeed() * dtA);
                     double Y = startY + satellite.getRadiusOfOrbit() * Math.sin(satellite.getSpeed() * dtA);
@@ -86,7 +96,6 @@ public class Main extends JFrame {
                 }
             }
             dtA += 0.01;
-
         }
     }
 }
